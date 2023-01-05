@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "greygoo:block/random_grey_goo"
+    }
+  }
+}

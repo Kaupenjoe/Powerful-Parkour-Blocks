@@ -1,0 +1,26 @@
+{
+  "block.greygoo.grey_goo": "Grey Goo",
+  "block.greygoo.dark_grey_goo": "Dark Grey Goo",
+  "block.greygoo.pink_goo": "Pink Goo",
+  "block.greygoo.purple_goo": "Purple Goo",
+
+  "block.greygoo.random_grey_goo": "Random Grey Goo",
+  "block.greygoo.random_dark_grey_goo": "Random Dark Grey Goo",
+  "block.greygoo.random_pink_goo": "Random Pink Goo",
+  "block.greygoo.random_purple_goo": "Random Purple Goo",
+
+  "itemGroup.greygootab": "Grey Goo Tab",
+
+  "tooltip.greygoo.warning": "§4CAUTION: WILL DESTROY WORLDS§r",
+  "tooltip.greygoo.shift": "Press §eSHIFT§r for more Information!",
+
+  "tooltip.greygoo.grey_goo": "Consumes anything, but iron and air",
+  "tooltip.greygoo.dark_grey_goo": "Consumes anything, but iron! Spreads in air",
+  "tooltip.greygoo.pink_goo": "Consumes only other Goos",
+  "tooltip.greygoo.purple_goo": "Spreads on top of Land",
+
+  "tooltip.greygoo.random_grey_goo": "Grey Goo that works with RandomTicks",
+  "tooltip.greygoo.random_dark_grey_goo": "Dark Grey Goo that works with RandomTicks",
+  "tooltip.greygoo.random_pink_goo": "Pink Goo that works with RandomTicks",
+  "tooltip.greygoo.random_purple_goo": "Purple Goo that works with RandomTicks"
+}
