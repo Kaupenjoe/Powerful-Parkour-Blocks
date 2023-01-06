@@ -8,6 +8,7 @@ import net.kaupenjoe.powerfulparkour.ParkourBlockMod;
 import net.kaupenjoe.powerfulparkour.block.entity.EffectBlockEntity;
 import net.kaupenjoe.powerfulparkour.networking.ModMessages;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -17,10 +18,14 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.player.Inventory;
+import org.apache.commons.lang3.math.NumberUtils;
+
+import static java.lang.Character.isDigit;
 
 public class EffectBlockScreen extends AbstractContainerScreen<EffectBlockScreenHandler> {
     private static final String BASE_LOCATION = "textures/mob_effect/";
     private ResourceLocation currentEffectLocation = new ResourceLocation("textures/mob_effect/speed.png");
+    private ResourceLocation TEXTURE = new ResourceLocation(ParkourBlockMod.MOD_ID,"textures/gui/effect_block_gui.png");
     private EditBox durationBox;
     private EditBox levelBox;
 
@@ -50,35 +55,78 @@ public class EffectBlockScreen extends AbstractContainerScreen<EffectBlockScreen
 
     @Override
     protected void init() {
-        int l = this.height / 4 + 48;
-        this.durationBox = new EditBox(this.font, this.width / 2 - 100, 40, 300, 20, Component.translatable("effect_block.duration"));
+        this.inventoryLabelY = -50;
+        this.inventoryLabelX = -50;
+        this.titleLabelX = this.width / 2 - 30;
+        this.titleLabelY = 55;
+
+        this.durationBox = new EditBox(this.font,this.width / 2 - 80, 102, 60, 20, Component.translatable("effect_block.duration")) {
+            @Override
+            public boolean charTyped(char c, int i) {
+                return super.charTyped(c, i) && isDigit(c);
+            }
+        };
         this.durationBox.setMaxLength(15);
         this.durationBox.setValue(String.valueOf(entity.duration));
-        this.addWidget(this.durationBox);
+        this.addRenderableWidget(this.durationBox);
 
-        this.levelBox = new EditBox(this.font, this.width / 2 - 100, 80, 300, 20, Component.translatable("effect_block.effect_level"));
+        this.levelBox = new EditBox(this.font,this.width / 2 + 20, 102, 60, 20, Component.translatable("effect_block.effect_level")) {
+            @Override
+            public boolean charTyped(char c, int i) {
+                return super.charTyped(c, i) && isDigit(c);
+            }
+        };
         this.levelBox.setMaxLength(15);
         this.levelBox.setValue(String.valueOf(entity.effectLevel));
-        this.addWidget(this.levelBox);
+        this.addRenderableWidget(this.levelBox);
+
+        int x_ = (width - imageWidth) / 2;
+        int y_ = (height - imageHeight) / 2;
 
         currentEffectLocation = new ResourceLocation(BASE_LOCATION + MobEffect.byId(entity.id).getDescriptionId().replace('.', '_').substring(17) + ".png");
         for(int i = 1; i <= 33; i++) {
             MobEffect currentEffect = MobEffect.byId(i);
             int tempIndex = i;
-            int x = i < 16 ? i : i-15;
-            int y = i < 16 ? 0 : 20;
+            int x = i;// i < 16 ? i : i-15;
+            int y = 0;
+            if(i < 8) {
+                x = i - 7;
+                y = 0;
+            } else if(i < 16) {
+                x = i - 15;
+                y = 20;
+            } else if(i < 24) {
+                x = i - 23;
+                y = 40;
+            } else if(i < 32) {
+                x = i - 31;
+                y = 60;
+            }
 
-            this.addRenderableWidget(new ImageButton(120 + (20 * x), l + 10 + y, 18, 18, 0, 0, 19,
+            this.addRenderableWidget(new ImageButton(x_ + 148 + (20 * x),y_ + 85 + y, 18, 18, 0, 0, 19,
                     new ResourceLocation(BASE_LOCATION + currentEffect.getDescriptionId().replace('.', '_').substring(17) + ".png"),
                     18, 18, (button) -> {
                 updateBlockEntity(currentEffect, tempIndex);
             }));
         }
 
+        this.addRenderableWidget(new Button(x_ + 60,y_ + 170,60, 20, Component.literal("Close"), (button) -> {
+            Minecraft.getInstance().setScreen(null);
+            updateBlockEntity(MobEffect.byId(entity.id), entity.id);
+        }));
+
         this.setInitialFocus(this.durationBox);
     }
 
     private void updateBlockEntity(MobEffect currentEffect, int tempIndex) {
+        if(!NumberUtils.isParsable(durationBox.getValue())) {
+            return;
+        }
+
+        if(!NumberUtils.isParsable(levelBox.getValue())) {
+            return;
+        }
+
         FriendlyByteBuf data = PacketByteBufs.create();
         data.writeInt(tempIndex);
         data.writeInt(Integer.parseInt(durationBox.getValue()));
@@ -104,15 +152,17 @@ public class EffectBlockScreen extends AbstractContainerScreen<EffectBlockScreen
 
     @Override
     public void render(PoseStack pPoseStack, int mouseX, int mouseY, float delta) {
+
         renderBackground(pPoseStack);
 
-        drawString(pPoseStack, this.font, DURATION_LABEL, this.width / 2 - 150, 45, 10526880);
         durationBox.render(pPoseStack, mouseX, mouseY, delta);
-
-        drawString(pPoseStack, this.font, LEVEL_LABEL, this.width / 2 - 150, 85, 10526880);
         levelBox.render(pPoseStack, mouseX, mouseY, delta);
 
         super.render(pPoseStack, mouseX, mouseY, delta);
+
+        drawString(pPoseStack, this.font, DURATION_LABEL, this.width / 2 - 80, 90, 16777215);
+        drawString(pPoseStack, this.font, LEVEL_LABEL, this.width / 2 + 20, 90, 16777215);
+
         renderTooltip(pPoseStack, mouseX, mouseY);
     }
 
@@ -131,10 +181,13 @@ public class EffectBlockScreen extends AbstractContainerScreen<EffectBlockScreen
     protected void renderBg(PoseStack poseStack, float f, int i, int j) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        int x = width / 2;
-        int y = height / 2;
+        int x = (width - imageWidth) / 2;
+        int y = (height - imageHeight) / 2;
+
+        RenderSystem.setShaderTexture(0, TEXTURE);
+        blit(poseStack, x, y,0, 0, 176, 199);
 
         RenderSystem.setShaderTexture(0, currentEffectLocation);
-        blit(poseStack, x, y - 64, 0, 0, 18, 18, 18, 18);
+        blit(poseStack, x + 79, y + 20, 0, 0, 18, 18, 18, 18);
     }
 }
