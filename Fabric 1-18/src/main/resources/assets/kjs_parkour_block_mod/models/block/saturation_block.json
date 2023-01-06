@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "kjs_parkour_block_mod:block/saturation_block"
+  }
+}

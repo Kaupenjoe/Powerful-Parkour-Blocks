@@ -1,0 +1,103 @@
+{
+  "variants": {
+    "effect=1": {
+      "model": "kjs_parkour_block_mod:block/speed_block"
+    },
+    "effect=2": {
+      "model": "kjs_parkour_block_mod:block/slowness_block"
+    },
+    "effect=3": {
+      "model": "kjs_parkour_block_mod:block/haste_block"
+    },
+    "effect=4": {
+      "model": "kjs_parkour_block_mod:block/mining_fatigue_block"
+    },
+    "effect=5": {
+      "model": "kjs_parkour_block_mod:block/strength_block"
+    },
+    "effect=6": {
+      "model": "kjs_parkour_block_mod:block/instant_health_block"
+    },
+    "effect=7": {
+      "model": "kjs_parkour_block_mod:block/instant_damage_block"
+    },
+    "effect=8": {
+      "model": "kjs_parkour_block_mod:block/jump_boost_block"
+    },
+    "effect=9": {
+      "model": "kjs_parkour_block_mod:block/nausea_block"
+    },
+    "effect=10": {
+      "model": "kjs_parkour_block_mod:block/regeneration_block"
+    },
+    "effect=11": {
+      "model": "kjs_parkour_block_mod:block/resistance_block"
+    },
+    "effect=12": {
+      "model": "kjs_parkour_block_mod:block/fire_resistance_block"
+    },
+    "effect=13": {
+      "model": "kjs_parkour_block_mod:block/water_breathing_block"
+    },
+    "effect=14": {
+      "model": "kjs_parkour_block_mod:block/invisibility_block"
+    },
+    "effect=15": {
+      "model": "kjs_parkour_block_mod:block/blindness_block"
+    },
+    "effect=16": {
+      "model": "kjs_parkour_block_mod:block/night_vision_block"
+    },
+    "effect=17": {
+      "model": "kjs_parkour_block_mod:block/hunger_block"
+    },
+    "effect=18": {
+      "model": "kjs_parkour_block_mod:block/weakness_block"
+    },
+    "effect=19": {
+      "model": "kjs_parkour_block_mod:block/poison_block"
+    },
+    "effect=20": {
+      "model": "kjs_parkour_block_mod:block/wither_block"
+    },
+    "effect=21": {
+      "model": "kjs_parkour_block_mod:block/health_boost_block"
+    },
+    "effect=22": {
+      "model": "kjs_parkour_block_mod:block/absorption_block"
+    },
+    "effect=23": {
+      "model": "kjs_parkour_block_mod:block/saturation_block"
+    },
+    "effect=24": {
+      "model": "kjs_parkour_block_mod:block/glowing_block"
+    },
+    "effect=25": {
+      "model": "kjs_parkour_block_mod:block/levitation_block"
+    },
+    "effect=26": {
+      "model": "kjs_parkour_block_mod:block/luck_block"
+    },
+    "effect=27": {
+      "model": "kjs_parkour_block_mod:block/unluck_block"
+    },
+    "effect=28": {
+      "model": "kjs_parkour_block_mod:block/slow_falling_block"
+    },
+    "effect=29": {
+      "model": "kjs_parkour_block_mod:block/conduit_power_block"
+    },
+    "effect=30": {
+      "model": "kjs_parkour_block_mod:block/dolphins_grace_block"
+    },
+    "effect=31": {
+      "model": "kjs_parkour_block_mod:block/bad_omen_block"
+    },
+    "effect=32": {
+      "model": "kjs_parkour_block_mod:block/hero_of_the_village_block"
+    },
+    "effect=33": {
+      "model": "kjs_parkour_block_mod:block/darkness_block"
+    }
+  }
+}

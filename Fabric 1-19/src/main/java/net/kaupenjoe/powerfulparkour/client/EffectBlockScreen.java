@@ -14,11 +14,15 @@ import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.player.Inventory;
 import org.apache.commons.lang3.math.NumberUtils;
+
+import java.util.List;
+import java.util.Optional;
 
 import static java.lang.Character.isDigit;
 
@@ -58,7 +62,7 @@ public class EffectBlockScreen extends AbstractContainerScreen<EffectBlockScreen
         this.inventoryLabelY = -50;
         this.inventoryLabelX = -50;
         this.titleLabelX = this.width / 2 - 30;
-        this.titleLabelY = 55;
+        this.titleLabelY = this.height / 2 - 75;
 
         this.durationBox = new EditBox(this.font,this.width / 2 - 80, 102, 60, 20, Component.translatable("effect_block.duration")) {
             @Override
@@ -87,27 +91,32 @@ public class EffectBlockScreen extends AbstractContainerScreen<EffectBlockScreen
         for(int i = 1; i <= 33; i++) {
             MobEffect currentEffect = MobEffect.byId(i);
             int tempIndex = i;
-            int x = i;// i < 16 ? i : i-15;
+            int x = i - 1;// i < 16 ? i : i-15;
             int y = 0;
-            if(i < 8) {
+            if(i <= 8) {
                 x = i - 7;
                 y = 0;
-            } else if(i < 16) {
+            } else if(i <= 16) {
                 x = i - 15;
                 y = 20;
-            } else if(i < 24) {
+            } else if(i <= 24) {
                 x = i - 23;
                 y = 40;
-            } else if(i < 32) {
+            } else if(i <= 32) {
                 x = i - 31;
                 y = 60;
+            } else if(i <= 40) {
+                x = i - 39;
+                y = 80;
             }
 
-            this.addRenderableWidget(new ImageButton(x_ + 148 + (20 * x),y_ + 85 + y, 18, 18, 0, 0, 19,
+            this.addRenderableWidget(new ImageButton(x_ + 128 + (20 * x),y_ + 85 + y, 18, 18, 0, 0, 19,
                     new ResourceLocation(BASE_LOCATION + currentEffect.getDescriptionId().replace('.', '_').substring(17) + ".png"),
                     18, 18, (button) -> {
                 updateBlockEntity(currentEffect, tempIndex);
-            }));
+            }, (button, poseStack, i1, j) -> {
+                renderTooltip(poseStack, List.of(Component.translatable(currentEffect.getDescriptionId())), Optional.empty(), i1, j);
+            }, CommonComponents.EMPTY));
         }
 
         this.addRenderableWidget(new Button(x_ + 60,y_ + 170,60, 20, Component.literal("Close"), (button) -> {

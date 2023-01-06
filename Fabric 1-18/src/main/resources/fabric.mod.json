@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "id": "greygoo",
+  "id": "kjs_parkour_block_mod",
   "version": "${version}",
 
-  "name": "Grey Goo Mod",
+  "name": "Kaupenjoe's Powerful Parkour Mod",
   "description": "Insane Mod that will break your world!",
   "authors": [
     "Kaupenjoe"
@@ -19,11 +19,14 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.kaupenjoe.greygoo.GreyGooMod"
+      "net.kaupenjoe.powerfulparkour.ParkourBlockMod"
+    ],
+    "client": [
+      "net.kaupenjoe.powerfulparkour.ParkourBlockClientMod"
     ]
   },
   "mixins": [
-    "greygoo.mixins.json"
+    "kjs_parkour_block_mod.mixins.json"
   ],
 
   "depends": {
