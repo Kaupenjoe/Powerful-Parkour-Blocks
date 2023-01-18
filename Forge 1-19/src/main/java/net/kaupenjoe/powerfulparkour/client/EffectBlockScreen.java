@@ -7,9 +7,11 @@ import net.kaupenjoe.powerfulparkour.block.entity.EffectBlockEntity;
 import net.kaupenjoe.powerfulparkour.networking.ModMessages;
 import net.kaupenjoe.powerfulparkour.networking.packets.EffectC2SSync;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.components.ImageButton;
+import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.CommonComponents;
@@ -108,19 +110,20 @@ public class EffectBlockScreen extends AbstractContainerScreen<EffectBlockScreen
                 y = 80;
             }
 
-            this.addRenderableWidget(new ImageButton(x_ + 128 + (20 * x),y_ + 85 + y, 18, 18, 0, 0, 19,
+            Button b = new ImageButton(x_ + 128 + (20 * x),y_ + 85 + y, 18, 18, 0, 0, 19,
                     new ResourceLocation(BASE_LOCATION + currentEffect.getDescriptionId().replace('.', '_').substring(17) + ".png"),
                     18, 18, (button) -> {
                 updateBlockEntity(currentEffect, tempIndex);
-            }, (button, poseStack, i1, j) -> {
-                renderTooltip(poseStack, List.of(Component.translatable(currentEffect.getDescriptionId())), Optional.empty(), i1, j);
-            }, CommonComponents.EMPTY));
+            });
+            b.setTooltip(Tooltip.create(Component.translatable(currentEffect.getDescriptionId())));
+
+            this.addRenderableWidget(b);
         }
 
-        this.addRenderableWidget(new Button(x_ + 60,y_ + 170,60, 20, Component.literal("Close"), (button) -> {
+        this.addRenderableWidget(new Button.Builder(Component.literal("Close"), (button) -> {
             Minecraft.getInstance().setScreen(null);
             updateBlockEntity(MobEffect.byId(entity.id), entity.id);
-        }));
+        }).bounds(x_ + 60,y_ + 170,60, 20).build());
 
         this.setInitialFocus(this.durationBox);
     }

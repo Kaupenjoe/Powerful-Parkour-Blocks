@@ -13,6 +13,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
 
+
 public class ModBlocks {
     public static final Block EFFECT_BLOCK = registerBlock("effect_block",
             new EffectBlock(BlockBehaviour.Properties.of(Material.STONE)

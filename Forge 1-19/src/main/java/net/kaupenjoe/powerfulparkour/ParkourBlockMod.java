@@ -12,10 +12,12 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -44,6 +46,13 @@ public class ParkourBlockMod {
 
 		modEventBus.addListener(this::commonSetup);
 		MinecraftForge.EVENT_BUS.register(this);
+		modEventBus.addListener(this::addCreative);
+	}
+
+	private void addCreative(CreativeModeTabEvent.BuildContents event) {
+		if (event.getTab() == CreativeModeTabs.BUILDING_BLOCKS) {
+			event.accept(ModBlocks.EFFECT_BLOCK);
+		}
 	}
 
 	private void commonSetup(final FMLCommonSetupEvent event) {
