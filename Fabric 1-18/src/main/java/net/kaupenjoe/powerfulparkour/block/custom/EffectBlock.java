@@ -52,7 +52,7 @@ public class EffectBlock extends BaseEntityBlock {
             }
         }
 
-        return super.use(blockState, level, blockPos, player, interactionHand, blockHitResult);
+        return InteractionResult.sidedSuccess(level.isClientSide());
     }
 
     @Override
